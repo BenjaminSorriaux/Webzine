@@ -1,0 +1,11 @@
+﻿<div class="col">
+    <h3>A propos</h3>
+    <p>Retrouvez les dernières pépites sur notre webzine.</p>
+    <h4>Styles</h4>
+    @foreach (var style in Model.Styles)
+    {
+        <a asp-area="" asp-controller="Style" asp-action="Index" asp-route-id="@style.IdStyle">
+            <p>@style.Libelle</p>
+        </a>
+    }
+</div>

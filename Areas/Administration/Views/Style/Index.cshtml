@@ -1,0 +1,51 @@
+﻿@model Webzine.WebApplication.ViewModels.BaseViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="col-12">
+        @*popup*@
+        @if (!(Model.MessageErreur == null))
+        {
+        <div class="alert alert-danger" role="alert">
+            @Model.MessageErreur
+        </div>
+        }
+
+        @*fin popup*@
+        <div class="card-title border-bottom">
+            <h1>Styles</h1>
+        </div>
+        <div>
+            <a asp-area="Administration" asp-controller="Style" asp-action="AddStyle">
+                <input type="submit" class="btn btn-primary" value="+ Ajouter un nouveau style" />
+            </a>
+            <br />
+            <br />
+            <table class=" table table-hover table-bordered table-striped">
+                <tbody>
+                    <tr class="thead-light">
+                        <th class="w-75">
+                            Libellé
+                        </th>
+                        <th class="w-25 text-center">
+                            Actions
+                        </th>
+                    </tr>
+                    @foreach (var style in Model.Styles)
+                    {
+                        <tr>
+                            <td>
+                                @style.Libelle
+                            </td>
+                            <td class="text-center">
+
+                                <a asp-area="Administration" asp-controller="Style" asp-action="AddStyle" asp-route-id="@style.IdStyle"><i class="fas fa-edit"></i></a>
+                                <a class="ml-4" asp-area="Administration" asp-controller="Style" asp-action="DeleteStyle" asp-route-id="@style.IdStyle"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

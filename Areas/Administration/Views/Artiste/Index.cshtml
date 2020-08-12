@@ -1,0 +1,50 @@
+﻿@model Webzine.WebApplication.ViewModels.ArtisteAdminViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="col-12">
+        @*popup*@
+        @if (!( Model.MessageErreur == null))
+        {
+        <div class="alert alert-danger" role="alert">
+            @Model.MessageErreur
+        </div>
+        }
+        
+        @*fin popup*@
+        <div class="card-title border-bottom">
+            <h1>Artistes</h1>
+        </div>
+        <div>
+            <a asp-area="Administration" asp-controller="Artiste" asp-action="AddArtiste">
+                <input type="submit" class="btn btn-primary" value="+ Ajouter un nouvel artiste" />
+            </a>
+            <br />
+            <br />
+            <table class=" table table-hover table-bordered table-striped">
+                <tbody>
+                    <tr class="thead-light">
+                        <th class="w-75">
+                            Nom de L'artiste
+                        </th>
+                        <th class="w-25 text-center">
+                            Actions
+                        </th>
+                    </tr>
+                    @foreach (var artiste in Model.Artistes)
+                    {
+                        <tr>
+                            <td>
+                                @artiste.Nom
+                            </td>
+                            <td class="text-center">
+                                <a asp-area="Administration" asp-controller="Artiste" asp-action="AddArtiste" asp-route-id="@artiste.IdArtiste"><i class="fas fa-edit"></i></a>
+                                <a class="ml-4" asp-area="Administration" asp-controller="Artiste" asp-action="DeleteArtiste" asp-route-id="@artiste.IdArtiste"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

@@ -1,0 +1,25 @@
+﻿@using Webzine.WebApplication.Controllers
+@model Webzine.WebApplication.ViewModels.TitreAdminViewModel
+
+@{
+    ViewData["Title"] = "DeleteTitre";
+}
+
+<div class="col-12">
+    <div class="card-title border-bottom">
+        <h1>Supprimer un titre</h1>
+    </div>
+    Êtes vous sur de vouloir supprimer le titre "@Model.Titre.Libelle"  de @Model.Titre.Artiste.Nom ?
+    <div class="mt-3">
+        <form asp-action="ActionDelete" asp-controller="Titre" method="post">
+            <input value="@Model.Titre.IdTitre" asp-for="Titre.IdTitre" type="hidden" />
+            <input type="submit" class="btn btn-danger" value="Supprimer" />
+        </form>
+
+    </div>
+    <div class="mt-5">
+        <a asp-area="Administration" asp-controller="Titre" asp-action="Index">
+            Retour à l'administration de Titres
+        </a>
+    </div>
+</div>

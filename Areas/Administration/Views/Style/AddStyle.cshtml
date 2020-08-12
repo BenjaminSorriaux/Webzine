@@ -1,0 +1,28 @@
+﻿@model Webzine.WebApplication.ViewModels.StyleAdminViewModel
+@{
+    ViewData["Title"] = "AddStyle";
+}
+
+<div class="col-12">
+    <div class="card-title">
+        <h1>Edition d'un Style</h1>
+    </div>
+    <form asp-controller="Style" asp-action="SubmitAction" method="post">
+        <div class="form-group row">
+            <label class="col-1">Libellé<span class="text-danger">*</span></label>
+            <div class="col-2">
+                <input class="form-control" value="@(Model.Style.IdStyle)" asp-for="Style.IdStyle" type="hidden" />
+                <input class="form-control" asp-for="Style.Libelle" placeholder="Nom du style" />
+            </div>
+            <div class="col-1">
+                <input type="submit" class="btn btn-primary" value="Sauvegarder" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="mt-5">
+    <a asp-area="Administration" asp-controller="Style" asp-action="Index">
+        Retour à l'administration des styles
+    </a>
+</div>

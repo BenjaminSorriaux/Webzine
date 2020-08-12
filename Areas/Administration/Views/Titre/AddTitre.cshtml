@@ -1,0 +1,128 @@
+﻿@using Webzine.WebApplication.Controllers
+@model Webzine.WebApplication.ViewModels.TitreAdminViewModel
+
+@{
+    ViewData["Title"] = "AddTitre";
+}
+
+<div class="col-12">
+    <div class="card-title border-bottom">
+        <h1>Editer un titre</h1>
+    </div>
+
+    <form asp-controller="Titre" asp-action="ActionAdd" method="post">
+
+        <div class="form-group row">
+            <input class="form-control" value="@(Model.Titre.IdTitre)" asp-for="Titre.IdTitre" type="hidden" />
+            <label class="col-2">Artiste<span class="text-danger">*</span></label>
+            <div class="col-10">
+                <select asp-for="Titre.IdArtiste" class="form-control">
+                    @foreach (var artiste in Model.Artistes)
+                    {
+                        <option value="@artiste.IdArtiste">@artiste.Nom</option>
+                    }
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <label class="col-2">Nom du titre<span class="text-danger">*</span></label>
+            <div class="col-10">
+                <input class="form-control" type="text" asp-for="Titre.Libelle" value="@(Model.Titre.Libelle)" placeholder="Nom du titre" />
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <label class="col-2">Chronique<span class="text-danger">*</span></label>
+            <div class="col-10">
+                <textarea class="form-control" asp-for="Titre.Chronique" placeholder="Chronique du titre"></textarea>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <label class="col-2">Date de sortie<span class="text-danger">*</span></label>
+            <div class="col-4">
+                <input class="form-control" asp-for="Titre.DateSortie" type="date" value="@(Model.Titre.DateSortie)" placeholder="JJ/MM/AAAA" />
+            </div>
+
+            <label class="col-2">Durée en seconde<span class="text-danger">*</span></label>
+            <div class="input-group col-4">
+                <input class="form-control" asp-for="Titre.Duree" type="number" value="@(Model.Titre.Duree)" />
+                <div class="input-group-append">
+                    <span class="input-group-text" id="inputGroupPrepend">secondes</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <label class="col-2">Jaquette de l'album<span class="text-danger">*</span></label>
+            <div class="col-10">
+                <input class="form-control" asp-for="Titre.UrlJaquette" type="text" value="@(Model.Titre.UrlJaquette)" placeholder="Lien de la jaquette l'album" />
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <label class="col-2">URL d'écoute</label>
+            <div class="col-10">
+                <input class="form-control" type="text" asp-for="Titre.UrlEcoute" value="@(Model.Titre.UrlEcoute)" placeholder="Lien de la musique" />
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <label class="col-2">Styles<span class="text-danger">*</span></label>
+            <div class="col-10 checkbox row checkbox-list">
+
+                @{
+                    for (int i = 0; i < Model.Styles.Count(); i++)
+                    {
+                        <div class="col-6 mb-2">
+                            <input asp-for="Styles[i].CheckboxAnswer" type="checkbox" class="custom-checkbox" />
+                            <span>@Model.Styles[i].Libelle</span>
+                            <input asp-for="Styles[i].IdStyle" type="hidden" />
+                            <input asp-for="Styles[i].Libelle" type="hidden" />
+                        </div>
+                    }
+
+                }
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <label class="col-2">Nombre de lectures<span class="text-danger">*</span></label>
+            <div class="col-4">
+                <input class="form-control" asp-for="Titre.NbLectures" type="number" value="@(Model.Titre.NbLectures)" placeholder="0" />
+            </div>
+
+            <label class="col-2">Nombre de likes<span class="text-danger">*</span></label>
+            <div class="col-4">
+                <input class="form-control" asp-for="Titre.NbLikes" type="number" value="@(Model.Titre.NbLikes)" placeholder="0" />
+            </div>
+
+        </div>
+
+
+        <div class=" mt-3">
+            <input type="submit" class="btn btn-primary" value="Sauvegarder" />
+        </div>
+    </form>
+
+    <div class="mt-5">
+        <a asp-area="Administration" asp-controller="Titre" asp-action="Index">
+            Retour à l'administration des Titres
+        </a>
+    </div>
+
+</div>

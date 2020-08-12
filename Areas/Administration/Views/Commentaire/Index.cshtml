@@ -1,0 +1,51 @@
+﻿@model Webzine.WebApplication.ViewModels.CommentaireAdminViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-12">
+    <div class="card-title border-bottom">
+        <h1>Listes des derniers commentaires</h1>
+    </div>
+    <div>
+        <table class=" table table-hover table-bordered table-striped">
+            <tbody>
+                <tr class="thead-light">
+                    <th class="">Titre</th>
+                    <th class="">Nom</th>
+                    <th class="w-50">Commentaire</th>
+                    <th class="">Date de creation</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                @foreach (var commentaire in Model.Commentaires)
+                {
+                    var id = commentaire.IdCommentaire;
+                    <tr>
+                        <td>
+                            <a asp-area="" asp-controller="Titre" asp-action="Index" asp-route-id="@commentaire.Musique.IdTitre">@commentaire.Musique.Libelle</a>
+
+                        </td>
+                        <td>
+                            @commentaire.Auteur
+                        </td>
+                        <td>
+                            @commentaire.Contenu
+                        </td>
+                        <td>
+                            @commentaire.DateCreation
+                        </td>
+                        <td class="text-center">
+                            <form asp-action="ActionDelete" asp-controller="Commentaire" method="post">
+                                <input class="form-control" asp-for="@id" type="hidden" />
+                                <button type="submit" class="btn-link btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

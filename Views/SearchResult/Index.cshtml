@@ -1,0 +1,43 @@
+﻿@using Webzine.WebApplication.Controllers
+@model Webzine.WebApplication.ViewModels.SearchViewModel
+@{
+    ViewData["Title"] = "Search results";
+}
+
+
+<div class="container-fluid"></div>
+
+<h1>Resultats pour la recherche : </h1>
+<hr />
+@if (Model.Artistes.Count == 0 && Model.Titres.Count == 0)
+{
+    <p>Pas de résultat</p>
+}
+@if (Model.Artistes.Count != 0)
+{
+    <h2 class="mt-3 mb-3">Artistes</h2>
+    <div class="mb-2">
+        @foreach (var artiste in Model.Artistes)
+        {
+            <p><i class="fas fa-user"></i><a class="ml-2" asp-area="" asp-controller="Artiste" asp-action="Index" asp-route-id="@artiste.IdArtiste">@artiste.Nom</a></p>
+        }
+    </div>
+}
+@if (Model.Titres.Count != 0)
+{
+    <h2 class="mt-3 mb-3">Musiques</h2>
+    <div>
+        @foreach (var titre in Model.Titres)
+        {
+            <div class="row mt-3 form-inline">
+                <div class="col-lg-1 col-md-12">
+                    <img src="@titre.UrlJaquette" class="img-fluid" />
+                </div>
+                <div class="col-lg-10 col-md-12">
+                    <a asp-area="" asp-controller="Titre" asp-action="Index" asp-route-id="@titre.IdTitre">@titre.Libelle</a>
+                    <p>Durée : @titre.Duree</p>
+                </div>
+            </div>
+        }
+    </div>
+}

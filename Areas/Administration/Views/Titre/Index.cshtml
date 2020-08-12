@@ -1,0 +1,83 @@
+﻿
+@model Webzine.WebApplication.ViewModels.TitresAdminViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="col-12">
+    <div class="card-title border-bottom">
+        <h1>Titres</h1>
+    </div>
+    <div>
+        <a asp-area="Administration" asp-controller="Titre" asp-action="AddTitre">
+            <input type="submit" class="btn btn-primary" value="+ Ajouter un nouveau titre" />
+        </a>
+        <br />
+        <br />
+        <table class=" table table-hover table-bordered table-striped">
+            <tbody>
+                <tr class="thead-light">
+                    <th class="w-25">
+                        Artiste
+                    </th>
+                    <th class="w-25">
+                        Libellé
+                    </th>
+                    <th class="text-center">
+                        Durée
+                    </th>
+                    <th class="text-center">
+                        Date de sortie
+                    </th>
+                    <th class="text-center">
+                        <i class="fas fa-eye mr-1"></i>
+                    </th>
+                    <th class="text-center">
+                        <i class="far fa-thumbs-up"></i>
+                    </th>
+                    <th class="text-center">
+                        <i class="fas fa-comments"></i>
+                    </th>
+                    <th class="text-center ">
+                        Actions
+                    </th>
+                </tr>
+                @foreach (var titre in Model.Titres)
+                {
+                    <tr>
+                        <td>
+                            @titre.Artiste.Nom
+                        </td>
+                        <td>
+                            @titre.Libelle
+                        </td>
+                        <td class="text-center">
+                            @titre.Duree
+                        </td>
+                        <td class="text-center">
+                            @titre.DateSortie
+                        </td>
+                        <td class="text-center">
+                            @titre.NbLectures
+                        </td>
+                        <td class="text-center">
+                            @titre.NbLikes
+                        </td>
+                        <td class="text-center">
+                            @if (titre.Commentaires != null)
+                            {
+                                @titre.Commentaires.Count
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a asp-area="Administration" asp-controller="Titre" asp-action="AddTitre" asp-route-id="@titre.IdTitre"><i class="fas fa-edit"></i></a>
+                            <a class="ml-4" asp-area="Administration" asp-controller="Titre" asp-action="DeleteTitre" asp-route-id="@titre.IdTitre"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,41 @@
+﻿@model Webzine.WebApplication.ViewModels.ArtisteAdminViewModel
+@{
+    ViewData["Title"] = "AddArtiste";
+}
+
+
+
+<div class="col-12">
+    <div class="card-title">
+        <h1>Edition d'un Artiste</h1>
+    </div>
+    <form asp-controller="Artiste" asp-action="SubmitAction" method="post">
+        <div class="form-group row">
+            <input class="form-control" value="@(Model.Artiste.IdArtiste)" asp-for="Artiste.IdArtiste" type="hidden" />
+            <label class="col-1">Nom de L'artiste<span class="text-danger">*</span></label>
+            <div class="col-11">
+                <input class="form-control" type="text" asp-for="Artiste.Nom" placeholder="Nom de l'artiste" />
+            </div>
+
+        </div>
+        <div class="form-group row">
+
+            <label class="col-1">Biographie</label>
+            <div class="col-11">
+                <textarea asp-for="Artiste.Biographie" class="form-control " placeholder="Biographie de l'artiste"></textarea>
+                <div class=" mt-3">
+                    <input type="submit" class="btn btn-primary" value="Sauvegarder" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="mt-5">
+        <a asp-area="Administration" asp-controller="Artiste" asp-action="Index">
+            Retour à l'administration des artistes
+        </a>
+    </div>
+
+</div>

@@ -1,0 +1,99 @@
+﻿@using Webzine.WebApplication.Controllers
+@model Webzine.WebApplication.ViewModels.TitresViewModel
+
+@{
+    ViewData["Title"] = "Accueil";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="mt-2 d-flex flex-column align-content-center">
+                <h3>Derniers titres chroniqués</h3>
+                @foreach (var titre in Model.TitresRecent)
+                {
+                    <div class="flex-fill bg-light my-1 px-1 py-1">
+                        <div class="row">
+
+                            <div class="col-lg-2">
+                                <img src="@titre.UrlJaquette" class="img-fluid" />
+                            </div>
+
+                            <div class="col-lg-7 col-md-12">
+
+                                <div class="row border-bottom ml-1 mr-1">
+                                    <a asp-area="" asp-controller="Titre" asp-action="Index" asp-route-id="@titre.IdTitre">
+                                        <h5>@titre.Artiste.Nom - @titre.Libelle</h5>
+                                    </a>
+                                </div>
+
+                                <div class="row ml-1 mr-1">
+                                    <p class="text-limit">@titre.Chronique</p>
+                                </div>
+
+                                <div class="row form-inline mb-3">
+                                    <div class="col">
+                                        <a asp-area="" asp-controller="Titre" asp-action="Index" asp-route-id="@titre.IdTitre">
+                                            <input type="button" class="btn btn-primary" value="Lire la suite" />
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <i class="fas fa-calendar mr-1"></i>@titre.DateCreation
+                                    </div>
+                                    <div class="col">
+                                        @if (@titre.TitresStyles.Any())
+                                        {
+
+                                            @foreach (var lien in titre.TitresStyles)
+                                            {
+                                                <i class="fas fa-tags"></i>
+                                                <a class="mr-1" asp-area="" asp-controller="Style" asp-action="Index" asp-route-id="@lien.IdStyle">
+                                                    @lien.Style.Libelle
+                                                </a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a>pas de style</a>
+                                        }
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col">
+            <h3>Titres les plus populaires</h3>
+            <div class="row mt-2 d-flex">
+                @foreach (var titre in Model.TitresPlusEcoutes)
+                {
+                    <div class="m-auto border rounded col-lg-3 col-md-12 flex-fill mt-md-3 mx-1 px-1 align-content-center">
+                        <div class="">
+                            <div class="row align-content-center m-1">
+                                <img src="@titre.UrlJaquette" class="img-fluid" />
+                            </div>
+                            <div class="row mt-3 align-content-center m-1">
+                                <a asp-area="" asp-controller="Titre" asp-action="Index" asp-route-id="@titre.IdTitre">
+                                    <h6>@titre.Libelle</h6>
+                                </a>
+                            </div>
+                            <div class="row m-1">
+                                <span class="mr-1">par</span><a asp-area="" asp-controller="Artiste" asp-action="Index" asp-route-id="@titre.Artiste.IdArtiste">@titre.Artiste.Nom</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

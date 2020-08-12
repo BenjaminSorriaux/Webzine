@@ -1,0 +1,82 @@
+﻿@using Webzine.WebApplication.Controllers
+@model Webzine.WebApplication.ViewModels.ArtisteViewModel
+@{
+    ViewData["Title"] = Model.Artiste.Nom;
+}
+<h1 class=" border-bottom pb-4 mt-3"> @Model.Artiste.Nom</h1>
+<div class="text-justify mt-4">
+    @Model.Artiste.Biographie
+</div>
+<h2 class=" border-bottom pb-4">Albums</h2>
+
+
+
+<div class="container-fluid">
+
+    @if (@Model.Artiste.Titres.Any())
+    {
+        <div class="row">
+            <div class="col-xl-2  col-lg-12 ">
+
+            </div>
+            <div class="col-xl-6 col-lg-12">
+                
+            </div>
+        </div>
+
+        @foreach(var album in Model.TitresParAlbum)
+        {
+            <div class="row ">
+                <div class="col-xl-2 col-lg-12">
+                    <img src=" @album.FirstOrDefault().UrlJaquette" class="img-fluid" />
+                </div>
+                <div class="col-xl-6 col-lg-12">
+                    <div class="pb-3 pt-3 row bg-light rounded mb-3">
+                        <div class="col-6">Titre</div>
+                        <div class="col-3 text-center">Durée</div>
+                        <div class="col-3 text-center ">Chronique</div>
+                    </div>
+                    <div>
+                        @foreach (var titre in @album)
+                        {
+                            if (titre.Equals(album.Last()))
+                            {
+                                // If this is last item
+                                <div class="row">
+                                    <div class="col-6">@titre.Libelle</div>
+                                    <div class="col-3 text-center">@titre.Duree</div>
+                                    <div class="col-3 text-center">
+                                        <a asp-area="" asp-controller="Titre" asp-action="Index" asp-route-id="@titre.IdTitre"><i class="fas fa-link"></i></a>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                // If this is not last item
+                                <div class="row">
+                                    <div class="col-6">@titre.Libelle</div>
+                                    <div class="col-3 text-center">@titre.Duree</div>
+                                    <div class="col-3 text-center">
+                                        <a asp-area="" asp-controller="Titre" asp-action="Index" asp-route-id="@titre.IdTitre"><i class="fas fa-link"></i></a>
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+
+                        }
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+
+    }
+    else
+    {
+        <p>Pas de résultat</p>
+
+    }
+
+
+</div>
+
